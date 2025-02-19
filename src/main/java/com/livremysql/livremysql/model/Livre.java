@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity//précise que c'est une entité => ajoute le @Id pour identitifier la classe
@@ -22,7 +24,19 @@ public class Livre {
     @Column(name="date_publication")
     private String datePublication;
 
+    //joiture table auteur 
+    @ManyToOne
+    @JoinColumn(name = "auteur_id")
+    private Auteur auteur;
 
+    public Auteur getAuteur() {
+        return auteur;
+    }
+
+    public void setAuteur(Auteur auteur) {
+        this.auteur = auteur;
+    }
+///////////////////////////////////////////////////////////
     public Long getId() {
         return this.id;
     }

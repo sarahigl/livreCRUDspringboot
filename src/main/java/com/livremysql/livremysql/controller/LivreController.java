@@ -1,17 +1,22 @@
 package com.livremysql.livremysql.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.livremysql.livremysql.DTO.LivreDTO;
 import com.livremysql.livremysql.model.Livre;
 import com.livremysql.livremysql.service.LivreService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
+
 
 @RestController
 public class LivreController {
@@ -30,11 +35,16 @@ public class LivreController {
         livreService.removeBook(idLong);
     }
     @GetMapping("/livre/{id}")
-    public Optional<Livre> getById(@PathVariable Long id) {
-        return livreService.findBook(id);
+    public Livre getById(@PathVariable Long id) {
+        return livreService.getLivreById(id);
     }
     @PutMapping("/update/{id}")
     public void updateBy(@PathVariable Long id, @RequestBody Livre entity) {
        livreService.update(id, entity);
     }
+    @GetMapping("/livreDto/{id}")
+    public Stream<LivreDTO> getLivreDto(@PathVariable Long id) {
+        return livreService.getLivreToDto(id);
+    }
+    
 }
